@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="<%= (err)?'show': 'hide'%>">
+  <h3>页面加载错误：{{err}}</h3>
+  </div>
+  <div class="<%= (err)?'hide': 'show'%>">
+  <h2>前端问答库</h2>
+  <hr style="margin-top:8px; margin-bottom:8px">
+  <!-- <dl class="list-grup">
+    <dd class="clearfix">
+      <div class="pull-left">
+        <img src="{{imgSrc}}" height="40" width="40">
+      </div>
+      <ul class="pull-left list-unstyled">
+        <li>
+          <span>【{{modelname}}】</span> 
+          <span>{{title}}</span>
+        </li>
+        <li>            
+          <span>&nbsp&nbsp访问量:{{visitNume}}</span>
+          <span>star:{{star}}</span>
+          <span>&nbsptime:{{timedate}}</span>
+        </li>
+      </ul>
+    </dd>	     
+  </dl>  -->
+  <div style="height: 436px; overflow-y: auto;">
+  {{each result}}
+  <dl style="margin-bottom:0">
+    <dd class="clearfix">
+      <div class="pull-left">
+        <img src="{{result[$index].img}}" height="40" width="40">
+      </div>
+      <ul class="pull-left list-unstyled">
+        <li>
+          <span>【{{result[$index].modelname}}】</span> 
+          <span>{{result[$index].title}}</span>
+        </li>
+        <li>            
+          <span>&nbsp&nbsp访问量:{{result[$index].visitNume}}</span>
+          <span>star:{{result[$index].star}}</span>
+          <span>&nbsptime:{{result[$index].timedate}}</span>
+        </li>
+      </ul>
+    </dd>	     
+  </dl> 
+  {{/each}}
+</div>
+  <hr style="margin-top:8px; margin-bottom:8px">
+  <!-- 分页部分 -->
+  <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="<%= (nowPage-1===0)?'disabled': ''%>">
+          <a href="?page=<%= (nowPage-1===0)?1 : nowPage-1%>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <% for(var i = 0; i < totalPage; i++) {%>
+          <li class="<%= (nowPage==(i+1))?'active':''%>"><a href="?page=<%=i+1%>" ><%=i+1%></a></li>
+        <%}%>
+
+        <li class="<%= (nowPage+1>totalPage)?'disabled': ''%>">
+          <a href="?page=<%= (nowPage+1>totalPage)?totalPage : nowPage+1%>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+</body>
+</html>
